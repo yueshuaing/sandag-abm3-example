@@ -1,0 +1,7 @@
+Label,Description,Expression,atwork
+,,_DIST@skims['DIST'],1
+util_Distance,Distance,"@_DIST.clip(0,20)",coef_dist_atwork
+util_Distance_squared,Distance_squared,"@_DIST.clip(0,20)**2",coef_distsqrd_atwork
+util_Distance_fulltime_worker,Distance_fulltime_worker,"@_DIST.clip(0,20) * (df.ptype==1)",coef_dist_ftworker_atwork
+util_Size_variable,Size_variable,@df['size_term'].apply(np.log1p),1
+util_No_attractions,No_attractions,@df['size_term']==0,-999

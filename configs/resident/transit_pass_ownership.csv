@@ -1,0 +1,27 @@
+Label,Description,Expression,no_pass,pass
+util_pass_asc,Constant,1,0,asc_pass
+util_age_19_to_34,Age Group - 19  yrs to 34 yrs,@(df.age >= 19) & (df.age < 35),0,coef_age_19_to_34_pass
+util_age_35_to_44,Age Group - 35 yrs to 44 yrs,@(df.age >= 35) & (df.age < 45),0,coef_age_35_to_44_pass
+util_age_55_to_64,Age Group - 55 yrs to 64 yrs,@(df.age >= 55) & (df.age < 65),0,coef_age_55_to_64_pass
+util_age_65_to_79,Age Group - 65 yrs to 79 yrs,@(df.age >= 65) & (df.age < 80),0,coef_age_65_to_79_pass
+util_hhinc_less_15,"Income less than 15,000",@df.income<15000,0,coef_hhinc_less_15
+util_hhinc_15_25,"income between 15,000- 24,999","@df.income.between(15000,24999)",0,coef_hhinc_15_25
+util_hhinc_50_100,"income between 50,000 and 99,999","@df.income.between(50000,99999)",0,coef_hhinc_50_100
+util_hhinc_100_200,"income between 100,000 and 199,999","@df.income.between(100000,199999)",0,coef_hhinc_100_200
+util_hhinc_200_plus,"income greater than 250,000",@df.income>=200000,0,coef_hhinc_200_plus
+util_persons_0_4_in_hhld,Persons age 0-4 in hhld,@df.num_young_children,0,coef_persons_0_4_in_hhld_pass
+util_persons_5_15_in_hhld,Persons age 5-15 in hhld,@df.num_children_5_to_15,0,coef_persons_5_15_in_hhld_pass
+util_zero_autos,zero auto household ownership,@df.auto_ownership==0,0,coef_zero_autos_pass
+util_auto_deficient,auto deficient household,@((df.auto_ownership < df.num_workers) & (df.auto_ownership > 0)),0,coef_auto_deficient_pass
+util_subs,Subsidy offered,@df.transit_pass_subsidy,0,coef_subs_pass
+util_inc_adj_transit_pass_cost,Income adjusted transit pass cost,"@df.transit_pass_cost_per_trip / (np.maximum(df.income, 1000) ** df.income_exponent) / 60",0,coef_tripmc_cost_coef
+util_parking_cost_at_work,Parking cost at work,@df.exp_daily_work,0,coef_parking_cost_at_work_pass
+#util_total_acc_transit,Total accessibility (0.66*PK + 0.34*OP) by transit,@(0.66*df.trPkTotal+0.34*df.trOpTotal),0,coef_total_transit_acc_pass
+util_is_univ,University student,@df.is_university,0,coef_is_univ
+util_ft_ASC,ptype_ft calibration constant,@df.ptype == 1,0,coef_ft_asc
+util_pt_ASC,ptype_pt calibration constant,@df.ptype == 2,0,coef_pt_asc
+util_un_ASC,ptype_un calibration constant,@df.ptype == 3,0,coef_un_asc
+util_na_ASC,ptype_na calibration constant,@df.ptype == 4,0,coef_na_asc
+util_da_ASC,ptype_da calibration constant,@df.ptype == 5,0,coef_da_asc
+util_nd_ASC,ptype_nd calibration constant,@df.ptype == 6,0,coef_nd_asc
+util_ps_ASC,ptype_ps calibration constant,@df.ptype == 7,0,coef_ps_asc

@@ -1,0 +1,4 @@
+coefficient_name,value,constrain
+coef_dist_to_nearest_ext_station,-0.05,F
+coef_size_of_nearest_ext_station,0.001,F
+coef_child_age,0.1,F
