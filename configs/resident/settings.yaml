@@ -127,8 +127,6 @@ distributed_time_factor_nonwork_stddev: 0.6
 distributed_time_factor_min: 0.1
 distributed_time_factor_max: 10
 
-resume_after: trip_mode_choice
-
 models:
   ### mp_init_proto_pop (single process)
   - initialize_proto_population # Separate step so proto tables can be split for multiprocess.
