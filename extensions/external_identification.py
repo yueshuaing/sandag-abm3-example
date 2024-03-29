@@ -275,12 +275,12 @@ def set_external_tour_variables(state, tours, choices, model_settings, trace_lab
     internal_col_name = model_settings.INTERNAL_COL_NAME
 
     if external_col_name is not None:
-        tours.loc[choices.index, external_col_name] = (
+        tours[external_col_name] = (
             (choices == 0).reindex(tours.index).fillna(False).astype(bool)
         )
     if internal_col_name is not None:
-        tours.loc[choices.index, internal_col_name] = np.where(
-            tours.loc[choices.index, external_col_name], False, True
+        tours[internal_col_name] = (
+            (choices == 1).reindex(tours.index).fillna(True).astype(bool)
         )
 
     # - annotate tours table
