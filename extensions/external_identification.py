@@ -194,7 +194,7 @@ def external_worker_identification(
     )
 
     if trace_hh_id:
-        tracing.trace_df(persons, label=trace_label, warn_if_empty=True)
+        state.tracing.trace_df(persons, label=trace_label, warn_if_empty=True)
 
 
 @workflow.step
@@ -264,7 +264,7 @@ def external_student_identification(
     )
 
     if trace_hh_id:
-        tracing.trace_df(persons, label=trace_label, warn_if_empty=True)
+        state.tracing.trace_df(persons, label=trace_label, warn_if_empty=True)
 
 
 def set_external_tour_variables(state, tours, choices, model_settings, trace_label):
@@ -351,7 +351,7 @@ def external_non_mandatory_identification(
     )
 
     if trace_hh_id:
-        tracing.trace_df(tours, label=trace_label, warn_if_empty=True)
+        state.tracing.trace_df(tours, label=trace_label, warn_if_empty=True)
 
 
 @workflow.step
@@ -416,4 +416,4 @@ def external_joint_tour_identification(
     )
 
     if trace_hh_id:
-        tracing.trace_df(tours, label=trace_label, warn_if_empty=True)
+        state.tracing.trace_df(tours, label=trace_label, warn_if_empty=True)
