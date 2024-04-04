@@ -203,4 +203,4 @@ def av_ownership(
     tracing.print_summary("av_ownership", households.av_ownership, value_counts=True)
 
     if trace_hh_id:
-        tracing.trace_df(households, label=trace_label, warn_if_empty=True)
+        state.tracing.trace_df(households, label=trace_label, warn_if_empty=True)

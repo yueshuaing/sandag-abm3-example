@@ -57,4 +57,4 @@ def airport_returns(
     tracing.print_summary("airport_returns", trips.returns, value_counts=True)
 
     if state.settings.trace_hh_id:
-        tracing.trace_df(trips, label=trace_label, warn_if_empty=True)
+        state.tracing.trace_df(trips, label=trace_label, warn_if_empty=True)

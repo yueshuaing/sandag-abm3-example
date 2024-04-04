@@ -216,7 +216,7 @@ def external_non_mandatory_destination(
         state.extend_table(sample_table_name, save_sample_df)
 
     if state.settings.trace_hh_id:
-        tracing.trace_df(
+        state.tracing.trace_df(
             tours[tours.tour_category == "non_mandatory"],
             label="external_non_mandatory_destination",
             slicer="person_id",
@@ -315,7 +315,7 @@ def external_joint_tour_destination(
         state.extend_table(sample_table_name, save_sample_df)
 
     if state.settings.trace_hh_id:
-        tracing.trace_df(
+        state.tracing.trace_df(
             tours[tours.tour_category == "non_mandatory"],
             label="external_joint_tour_destination",
             slicer="person_id",

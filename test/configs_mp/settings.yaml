@@ -14,7 +14,7 @@ chunk_size: 0
 num_processes: 2
 
 # number of households to simulate
-households_sample_size:  10
+households_sample_size:  100
 
 # turn writing of sample_tables on and off for all models
 # (if True, tables will be written if DEST_CHOICE_SAMPLE_TABLE_NAME is specified in individual model settings)
