@@ -135,7 +135,7 @@ util_PNR_PRM_Walk_other_time,PNR_PRM - Walk other time,@(odt_skims['PNROUT_PRM_X
 util_PNR_PRM_Fare,PNR_PRM - Fare,"@df.transitSubsidyPassDiscount*(odt_skims['PNROUT_PRM_FARE'])*100/(np.maximum(df.income,1000)**df.income_exponent)  * df.outbound",,,,,,,,,,coef_income,,,,,,,,,,,,,
 util_PNR_PRM_ASC,PNR_PRM - Alternative-specific constant,@df.pnr_prm_out_asc * df.time_factor * df.outbound,,,,,,,,,,coef_ivt,,,,,,,,,,,,,
 util_PNR_PRM_PNR_cost,PNR_PRM - PNR cost,"@(df.auto_op_cost * (odt_skims['PNROUT_PRM_ACC']) *driveSpeed) * df.outbound/(np.maximum(df.income,1000)**df.income_exponent)",,,,,,,,,,coef_income,,,,,,,,,,,,,
-util_PNRIN_PRM_PNR_cost,PNR_PRM - PNR cost,"@(df.auto_op_cost * (dot_skims['PNRIN_PRM_ACC']) *driveSpeed)*~df.outbound/(np.maximum(df.income,1000)**df.income_exponent)",,,,,,,,,,coef_income,,,,,,,,,,,,,
+util_PNRIN_PRM_PNR_cost,PNR_PRM - PNR cost,"@(df.auto_op_cost * (odt_skims['PNRIN_PRM_EGR']) *driveSpeed)*~df.outbound/(np.maximum(df.income,1000)**df.income_exponent)",,,,,,,,,,coef_income,,,,,,,,,,,,,
 util_PNRIN_PRM_In_vehicle_time,PNRIN_PRM - In-vehicle time,@(odt_skims['PNRIN_PRM_TOTALIVTT']) * df.time_factor   * ~df.outbound,,,,,,,,,,coef_ivt,,,,,,,,,,,,,
 util_PNRIN_PRM_In_vehicle_time_on_LRT,PNRIN_PRM - In-vehicle time on LRT,@(ivt_lrt_multiplier - 1) * (odt_skims['PNRIN_PRM_LRTIVTT']) * df.time_factor    * ~df.outbound,,,,,,,,,,coef_ivt,,,,,,,,,,,,,
 util_PNRIN_PRM_In_vehicle_time_on_CMR,PNRIN_PRM - In-vehicle time on CMR,@(ivt_cmr_multiplier - 1) * (odt_skims['PNRIN_PRM_CMRIVTT']) * df.time_factor    * ~df.outbound,,,,,,,,,,coef_ivt,,,,,,,,,,,,,

@@ -13,7 +13,7 @@ chunk_training_mode: disabled
 # see shadow_pricing.yaml for additional settings
 use_shadow_pricing: True
 
-memory_profile: False
+memory_profile: True
 
 # Sample TAZ before MAZ in destination choice
 want_dest_choice_presampling: True
@@ -24,7 +24,7 @@ want_dest_choice_sample_tables: False
 
 # trace household id; comment out or leave empty for no trace
 # households with all tour types
-trace_hh_id: 791851
+# trace_hh_id: 1051657
 
 chunk_training_mode: disabled
 
@@ -100,7 +100,7 @@ input_table_list:
       - zip09
       - luz_id
 
-cleanup_pipeline_after_run: True
+cleanup_pipeline_after_run: False
 
 output_tables:
   h5_store: False
@@ -127,7 +127,7 @@ distributed_time_factor_nonwork_stddev: 0.6
 distributed_time_factor_min: 0.1
 distributed_time_factor_max: 10
 
-resume_after: workplace_location
+resume_after:
 
 models:
   ### mp_init_proto_pop (single process)
