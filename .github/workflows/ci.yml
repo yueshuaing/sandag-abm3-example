@@ -84,4 +84,5 @@ jobs:
           mamba list
       - name: Test this implementation
         run: |
-          python -m pytest sandag-abm3-example/test --target test_sandag_abm3.py::test_sandag_abm3_progressive
+          cd sandag-abm3-example/test
+          python -m pytest test_sandag_abm3.py::test_sandag_abm3_progressive
