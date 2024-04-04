@@ -120,3 +120,7 @@ CONSTANTS:
   CHARGERS_PER_CAP: 0.00034592
   # chargers per cap used in vehicle type model estimation
   # CHARGERS_PER_CAP: 0.000721205
+
+sharrow_settings:
+  skip: true
+  # "body_type.str.contains('-AV')" and similar string-manip expressions not sharrow-safe
