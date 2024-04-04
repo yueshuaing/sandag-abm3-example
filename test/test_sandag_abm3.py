@@ -7,8 +7,9 @@ from pathlib import Path
 
 import pandas as pd
 import pandas.testing as pdt
+import pytest
 
-from activitysim.core import testing, workflow
+from activitysim.core import workflow
 
 
 def _example_path(dirname):
@@ -19,6 +20,7 @@ def _example_path(dirname):
 def _test_path(dirname) -> Path:
     """Paths to things in the `test` directory."""
     return Path(__file__).parent.joinpath(dirname)
+
 
 def regress(out_dir: Path, regress_dir: Path = None):
     if regress_dir is None:
@@ -36,12 +38,8 @@ def regress(out_dir: Path, regress_dir: Path = None):
     pdt.assert_frame_equal(final_trips_df, regress_trips_df)
 
 
-def run_test_sandag_abm3(
-    multiprocess=False, chunkless=False, sharrow=False
-):
-
-
-    file_path = os.path.join(os.path.dirname(__file__), '..', "simulation.py")
+def run_test_sandag_abm3(multiprocess=False, chunkless=False, sharrow=False):
+    file_path = os.path.join(os.path.dirname(__file__), "..", "simulation.py")
 
     run_args = []
 
@@ -104,7 +102,7 @@ def run_test_sandag_abm3(
     else:
         subprocess.run([sys.executable, file_path] + run_args, check=True)
 
-    regress()
+    regress(out_dir, _test_path("regress/hh500"))
 
 
 def test_sandag_abm3_cli():
@@ -112,7 +110,7 @@ def test_sandag_abm3_cli():
 
 
 def test_sandag_abm3():
-    from activitysim import abm   # noqa: F401
+    from activitysim import abm  # noqa: F401
 
     # make a temp directory for output that will persist for review
     tmp_path = Path(__file__).parent.joinpath("output-test_sandag_abm3")
@@ -208,14 +206,27 @@ EXPECTED_MODELS = [
 ]
 
 
-@testing.run_if_exists("regress/hh100-reference-pipeline.zip")
-def test_sandag_abm3_progressive():
-
+@pytest.mark.parametrize("use_sharrow", [False, True])
+def test_sandag_abm3_progressive(use_sharrow=False):
     import activitysim.abm  # register components # noqa: F401
 
     out_dir = _test_path("output-progressive")
     out_dir.mkdir(exist_ok=True)
     out_dir.joinpath(".gitignore").write_text("**\n")
+
+    settings = dict(
+        cleanup_pipeline_after_run=False,
+        treat_warnings_as_errors=True,
+        households_sample_size=500,
+        chunk_size=0,
+        use_shadow_pricing=True,
+    )
+    tags = ["-hh500"]
+
+    if use_sharrow:
+        settings["sharrow"] = "test"
+        settings["recode_pipeline_columns"] = True
+        tags.append("-recode")
 
     state = workflow.State.make_default(
         configs_dir=(
@@ -224,30 +235,28 @@ def test_sandag_abm3_progressive():
         ),
         data_dir=_example_path("data"),
         output_dir=out_dir,
-        settings=dict(
-            cleanup_pipeline_after_run=False,
-            # recode_pipeline_columns=True,
-            treat_warnings_as_errors=True,
-            households_sample_size=100,
-            # households_sample_size=500, == 12min 43 sec
-            chunk_size=0,
-            use_shadow_pricing=True,
-        ),
+        settings=settings,
     )
     state.import_extensions("../extensions")
     state.filesystem.persist_sharrow_cache()
+    state.logging.config_logger()
 
     assert state.settings.models == EXPECTED_MODELS
     assert state.settings.chunk_size == 0
-    assert not state.settings.sharrow
+    if not use_sharrow:
+        assert not state.settings.sharrow
+
+    tags = "".join(tags)
+    ref_pipeline = Path(__file__).parent.joinpath(
+        f"regress/reference-pipeline{tags}.zip"
+    )
 
     for step_name in EXPECTED_MODELS:
         state.run.by_name(step_name)
         try:
-            state.checkpoint.check_against(
-                Path(__file__).parent.joinpath("regress/hh100-reference-pipeline.zip"),
-                checkpoint_name=step_name,
-            )
+            if ref_pipeline.exists():
+                state.checkpoint.check_against(ref_pipeline, checkpoint_name=step_name)
+                pass
         except Exception:
             print(f"> sandag-abm3 {step_name}: ERROR")
             raise
@@ -256,8 +265,6 @@ def test_sandag_abm3_progressive():
 
 
 if __name__ == "__main__":
-    run_test_sandag_abm3(multiprocess=False)
-    run_test_sandag_abm3(multiprocess=True)
-    run_test_sandag_abm3(multiprocess=False, chunkless=True)
-    run_test_sandag_abm3(sharrow=True)
-    test_sandag_abm3_progressive()
+    # run_test_sandag_abm3(multiprocess=True)
+    test_sandag_abm3_progressive(use_sharrow=False)
+    test_sandag_abm3_progressive(use_sharrow=True)
