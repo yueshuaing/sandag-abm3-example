@@ -207,7 +207,7 @@ EXPECTED_MODELS = [
 
 
 @pytest.mark.parametrize("use_sharrow", [False, True])
-def test_sandag_abm3_progressive(use_sharrow=False):
+def test_sandag_abm3_progressive(use_sharrow):
     import activitysim.abm  # register components # noqa: F401
 
     out_dir = _test_path("output-progressive")
