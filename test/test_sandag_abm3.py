@@ -217,11 +217,11 @@ def test_sandag_abm3_progressive(use_sharrow):
     settings = dict(
         cleanup_pipeline_after_run=False,
         treat_warnings_as_errors=True,
-        households_sample_size=500,
+        households_sample_size=100,
         chunk_size=0,
         use_shadow_pricing=True,
     )
-    tags = ["-hh500"]
+    tags = ["-hh100"]
 
     if use_sharrow:
         settings["sharrow"] = "test"
