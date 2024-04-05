@@ -210,7 +210,7 @@ EXPECTED_MODELS = [
 def test_sandag_abm3_progressive(use_sharrow):
     import activitysim.abm  # register components # noqa: F401
 
-    out_dir = _test_path("output-progressive")
+    out_dir = _test_path("output-progressive-sharrow" if use_sharrow else "output-progressive")
     out_dir.mkdir(exist_ok=True)
     out_dir.joinpath(".gitignore").write_text("**\n")
 
