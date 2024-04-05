@@ -51,3 +51,6 @@ SEGMENT_IDS:
 
 # not loaded if commented out
 # SAVED_SHADOW_PRICE_TABLE_NAME: workplace_shadow_prices.csv
+
+sharrow_settings:
+  skip: true

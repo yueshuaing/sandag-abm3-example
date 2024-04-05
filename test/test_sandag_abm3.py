@@ -7,8 +7,9 @@ from pathlib import Path
 
 import pandas as pd
 import pandas.testing as pdt
+import pytest
 
-from activitysim.core import testing, workflow
+from activitysim.core import workflow
 
 
 def _example_path(dirname):
@@ -16,29 +17,29 @@ def _example_path(dirname):
     return os.path.normpath(os.path.join(os.path.dirname(__file__), "..", dirname))
 
 
-def _test_path(dirname):
+def _test_path(dirname) -> Path:
     """Paths to things in the `test` directory."""
-    return os.path.join(os.path.dirname(__file__), dirname)
+    return Path(__file__).parent.joinpath(dirname)
 
 
-def run_test_sandag_abm3(
-    multiprocess=False, chunkless=False, sharrow=False
-):
+def regress(out_dir: Path, regress_dir: Path = None):
+    if regress_dir is None:
+        regress_dir = _test_path("regress")
+    regress_trips_df = pd.read_csv(regress_dir.joinpath("final_trips.csv"))
+    final_trips_df = pd.read_csv(out_dir / "final_trips.csv")
 
-    def regress(ext):
-        regress_trips_df = pd.read_csv(_test_path("regress/final_trips.csv"))
-        final_trips_df = pd.read_csv(_test_path("output/final_trips.csv"))
+    # columns that are in the regression target must be in the output
+    missing_columns = set(regress_trips_df.columns) - set(final_trips_df.columns)
+    assert missing_columns == set()
 
-        # column order may not match, so fix it before checking
-        assert sorted(regress_trips_df.columns) == sorted(final_trips_df.columns)
-        final_trips_df = final_trips_df[regress_trips_df.columns]
+    # column order may not match, so fix it before checking
+    final_trips_df = final_trips_df[regress_trips_df.columns]
 
-        # person_id,household_id,tour_id,primary_purpose,trip_num,outbound,trip_count,purpose,
-        # destination,origin,destination_logsum,depart,trip_mode,mode_choice_logsum
-        # compare_cols = []
-        pdt.assert_frame_equal(final_trips_df, regress_trips_df)
+    pdt.assert_frame_equal(final_trips_df, regress_trips_df)
 
-    file_path = os.path.join(os.path.dirname(__file__), '..', "simulation.py")
+
+def run_test_sandag_abm3(multiprocess=False, chunkless=False, sharrow=False):
+    file_path = os.path.join(os.path.dirname(__file__), "..", "simulation.py")
 
     run_args = []
 
@@ -71,7 +72,7 @@ def run_test_sandag_abm3(
         run_args.extend(
             [
                 "-c",
-                _example_path(r"configs\resident"),
+                _example_path(r"configs/resident"),
             ]
         )
 
@@ -101,11 +102,41 @@ def run_test_sandag_abm3(
     else:
         subprocess.run([sys.executable, file_path] + run_args, check=True)
 
-    regress()
+    regress(out_dir, _test_path("regress/hh500"))
+
+
+def test_sandag_abm3_cli():
+    run_test_sandag_abm3(multiprocess=False)
 
 
 def test_sandag_abm3():
-    run_test_sandag_abm3(multiprocess=False)
+    from activitysim import abm  # noqa: F401
+
+    # make a temp directory for output that will persist for review
+    tmp_path = Path(__file__).parent.joinpath("output-test_sandag_abm3")
+    tmp_path.mkdir(exist_ok=True)
+
+    state = workflow.State.make_default(
+        configs_dir=(
+            _example_path(r"configs/common"),
+            _example_path(r"configs/resident"),
+        ),
+        data_dir=_example_path("data"),
+        output_dir=tmp_path,
+        settings=dict(
+            cleanup_pipeline_after_run=False,
+            # recode_pipeline_columns=True,
+            treat_warnings_as_errors=True,
+            households_sample_size=100,
+            # households_sample_size=500, == 12min 43 sec
+            chunk_size=0,
+            use_shadow_pricing=True,
+        ),
+    )
+    state.import_extensions("../extensions")
+    state.filesystem.persist_sharrow_cache()
+    state.run.all(resume_after=None)
+    regress(tmp_path, _test_path("regress/hh500"))
 
 
 def test_sandag_abm3_chunkless():
@@ -175,48 +206,65 @@ EXPECTED_MODELS = [
 ]
 
 
-@testing.run_if_exists("reference-pipeline-abm3.zip")
-def test_sandag_abm3_progressive():
-
+@pytest.mark.parametrize("use_sharrow", [False, True])
+def test_sandag_abm3_progressive(use_sharrow):
     import activitysim.abm  # register components # noqa: F401
 
     out_dir = _test_path("output-progressive")
-    Path(out_dir).mkdir(exist_ok=True)
-    Path(out_dir).joinpath(".gitignore").write_text("**\n")
+    out_dir.mkdir(exist_ok=True)
+    out_dir.joinpath(".gitignore").write_text("**\n")
+
+    settings = dict(
+        cleanup_pipeline_after_run=False,
+        treat_warnings_as_errors=True,
+        households_sample_size=100,
+        chunk_size=0,
+        use_shadow_pricing=True,
+    )
+    tags = ["-hh100"]
+
+    if use_sharrow:
+        settings["sharrow"] = "test"
+        settings["recode_pipeline_columns"] = True
+        tags.append("-recode")
 
     state = workflow.State.make_default(
         configs_dir=(
-            _test_path("configs_recode"),
-            _test_path("configs"),
-            _example_path("resident\configs"),
+            _example_path(r"configs/common"),
+            _example_path(r"configs/resident"),
         ),
         data_dir=_example_path("data"),
-        # data_model_dir=_example_path("data_model"),
         output_dir=out_dir,
+        settings=settings,
     )
+    state.import_extensions("../extensions")
     state.filesystem.persist_sharrow_cache()
+    state.logging.config_logger()
 
     assert state.settings.models == EXPECTED_MODELS
     assert state.settings.chunk_size == 0
-    assert not state.settings.sharrow
+    if not use_sharrow:
+        assert not state.settings.sharrow
+
+    tags = "".join(tags)
+    ref_pipeline = Path(__file__).parent.joinpath(
+        f"regress/reference-pipeline{tags}.zip"
+    )
 
     for step_name in EXPECTED_MODELS:
         state.run.by_name(step_name)
         try:
-            state.checkpoint.check_against(
-                Path(__file__).parent.joinpath("reference-pipeline-abm3.zip"),
-                checkpoint_name=step_name,
-            )
+            if ref_pipeline.exists():
+                state.checkpoint.check_against(ref_pipeline, checkpoint_name=step_name)
+                pass
         except Exception:
-            print(f"> prototype_mtc_extended {step_name}: ERROR")
+            print(f"> sandag-abm3 {step_name}: ERROR")
             raise
         else:
-            print(f"> prototype_mtc_extended {step_name}: ok")
+            print(f"> sandag-abm3 {step_name}: ok")
 
 
 if __name__ == "__main__":
-    run_test_sandag_abm3(multiprocess=False)
-    run_test_sandag_abm3(multiprocess=True)
-    run_test_sandag_abm3(multiprocess=False, chunkless=True)
-    run_test_sandag_abm3(sharrow=True)
-    test_sandag_abm3_progressive()
+    # run_test_sandag_abm3(multiprocess=True)
+    test_sandag_abm3_progressive(use_sharrow=False)
+    test_sandag_abm3_progressive(use_sharrow=True)

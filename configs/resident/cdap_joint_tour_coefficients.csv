@@ -10,7 +10,7 @@ Label,description,Expression,dependency,coefficient
 ,person x is kid and DAP is N,ptype_px > 6,N_px,1.6898
 ,Accessibility to retail employment/Non-Mandatory Attractions,shopping_accessibility_p1,,0.055031985
 ,Income less than $30k,income_p1 < 30000,,-0.192506367
-,Income between $60k and $100k,(income_p1  >= 60000) & (income_p1 < =100000),,0.104325349
+,Income between $60k and $100k,(income_p1>=60000) & (income_p1<=100000),,0.104325349
 ,Income more than $100k,income_p1 > 100000,,0.104325349
 ,No Car Households,auto_ownership_p1 == 0,,0
 ,Cars Less than Workers,auto_ownership_p1 < num_workers_p1,,0.088402389
