@@ -71,5 +71,5 @@ jobs:
           mamba list
       - name: Test this implementation
         run: |
-          cd sandag-abm3-example/test
+          cd activitysim-sandag-abm3/test
           python -m pytest test_sandag_abm3.py::test_sandag_abm3_progressive
