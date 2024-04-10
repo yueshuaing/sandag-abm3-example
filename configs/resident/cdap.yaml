@@ -45,6 +45,3 @@ annotate_households:
   DF: households
   TABLES:
     - persons
-
-sharrow_settings:
-  skip: true
