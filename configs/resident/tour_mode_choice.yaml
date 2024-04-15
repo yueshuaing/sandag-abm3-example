@@ -112,3 +112,6 @@ LOGSUM_CHOOSER_COLUMNS:
   - transit_pass_ownership
 
 MODE_CHOICE_LOGSUM_COLUMN_NAME: mode_choice_logsum
+
+sharrow_settings:
+  skip: true
