@@ -11,3 +11,6 @@ preprocessor:
     - land_use
     - households
     - joint_tour_participants
+
+sharrow_settings:
+  skip: true

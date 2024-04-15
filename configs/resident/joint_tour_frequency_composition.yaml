@@ -33,3 +33,6 @@ ALTS_TABLE_STRUCTURE:
       1: adults
       2: children
       3: mixed
+
+sharrow_settings:
+  skip: true
