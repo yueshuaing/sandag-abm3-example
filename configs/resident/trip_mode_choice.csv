@@ -330,7 +330,7 @@ util_TNC_MIX_In_vehicle_time_on_CMR,TNC_MIX - In-vehicle time on CMR,@(ivt_cmr_m
 util_TNC_MIX_In_vehicle_time_on_LTD_EXP,TNC_MIX - In-vehicle time on LTD and EXP,@(ivt_ltd_multiplier - 1) * (odt_skims['TNCOUT_MIX_LTDEXPIVTT']+ odt_skims['TNCOUT_MIX_EXPIVTT']) * df.time_factor * df.outbound,,,,,,,,,,,,,,,,,coef_ivt,,,,,,
 util_TNC_MIX_In_vehicle_time_on_URB,TNC_MIX - In-vehicle time on BRT,@(ivt_brt_multiplier - 1) * (odt_skims['TNCOUT_MIX_BRTIVTT']) * df.time_factor * df.outbound,,,,,,,,,,,,,,,,,coef_ivt,,,,,,
 util_TNC_MIX_FIRST_iwait_time,TNC_MIX - First iwait time,@(odt_skims['TNCOUT_MIX_FIRSTWAIT']) * df.time_factor * df.outbound,,,,,,,,,,,,,,,,,coef_wait,,,,,,
-util_TNC_MIX_transfer_wait_time,TNC_MIX - transfer wait time,@ (odt_skims['TNCOUT_MIX_XFERWAIT']) * df.time_factor * df.outbound,,,,,,,,,,,,,,,,,coef_xwait,,,,,,
+util_TNC_MIX_transfer_wait_time,TNC_MIX - transfer wait time,@(odt_skims['TNCOUT_MIX_XFERWAIT']) * df.time_factor * df.outbound,,,,,,,,,,,,,,,,,coef_xwait,,,,,,
 util_TNC_MIX_number_of_transfers,TNC_MIX - number of transfers,"@(-23+23*np.exp(0.414*np.clip(odt_skims['TNCOUT_MIX_XFERS'], a_min=None,a_max=4))) * df.time_factor * df.outbound",,,,,,,,,,,,,,,,,coef_xferdrive,,,,,,
 util_TNC_MIX_TNC_time,TNC_MIX - TNC time,@(odt_skims['TNCOUT_MIX_ACC']) * df.time_factor * df.outbound,,,,,,,,,,,,,,,,,coef_acctime,,,,,,
 util_TNC_MIX_Walk_egress_time_(at_attraction_end),TNC_MIX - Walk egress time (at attraction end),@(df.dest_mix_time) * df.time_factor * df.outbound,,,,,,,,,,,,,,,,,coef_acctime,,,,,,

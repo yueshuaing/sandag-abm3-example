@@ -40,8 +40,8 @@ Description,Target,Expression
 ,distance_walk,"_distance_walk + _origin_mix_dist * np.where(df.trip_mode == 'TNC_MIX',1,0) * np.where(~df.outbound,1,0)"
 #,,
 ,_time_mm,0
-,_time_mm,"_time_mm + df.trip_mode.isin(['EBIKE'])* od_skims['BIKE_TIME'] * bikeSpeed / ebikeSpeed"
-,time_mm,"_time_mm + df.trip_mode.isin(['ESCOOTER'])*od_skims['BIKE_TIME'] * bikeSpeed / escooterSpeed"
+,_time_mm,"_time_mm + df.trip_mode.isin(['EBIKE'])* odt_skims['BIKE_TIME'] * bikeSpeed / ebikeSpeed"
+,time_mm,"_time_mm + df.trip_mode.isin(['ESCOOTER'])*odt_skims['BIKE_TIME'] * bikeSpeed / escooterSpeed"
 ,_distance_mm,0
 ,_distance_mm,"_distance_mm + df.trip_mode.isin(['EBIKE'])*od_skims['BIKE_TIME'] * (bikeSpeed/ebikeSpeed)/60 * ebikeSpeed"
 ,distance_mm,"_distance_mm + df.trip_mode.isin(['ESCOOTER'])*od_skims['BIKE_TIME'] * (bikeSpeed/escooterSpeed)/60 * escooterSpeed"
