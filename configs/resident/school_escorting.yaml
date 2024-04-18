@@ -46,5 +46,5 @@ CONSTANTS:
   max_bin_difference_between_departure_times: 1
   mins_per_time_bin: 30
 
-sharrow_settings:
-  skip: true
+compute_settings:
+  sharrow_skip: true

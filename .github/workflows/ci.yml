@@ -57,6 +57,7 @@ jobs:
       - name: Update environment
         run: |
           mamba env update -n asim-test -f activitysim/conda-environments/github-actions-tests.yml
+          mamba install -c conda-forge c-blosc2
         if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Install activitysim

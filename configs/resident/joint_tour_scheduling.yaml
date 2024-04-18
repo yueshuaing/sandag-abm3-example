@@ -12,5 +12,5 @@ preprocessor:
     - households
     - joint_tour_participants
 
-sharrow_settings:
-  skip: true
+compute_settings:
+  sharrow_skip: true

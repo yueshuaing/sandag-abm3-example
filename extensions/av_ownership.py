@@ -143,6 +143,7 @@ def av_ownership(
             trace_label=trace_label,
             trace_choice_name="av_ownership",
             estimator=estimator,
+            compute_settings=model_settings.compute_settings,
         )
 
         if iterations_target_percent is not None:

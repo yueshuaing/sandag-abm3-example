@@ -123,7 +123,7 @@ def external_identification(
         trace_label=trace_label,
         trace_choice_name=trace_label,
         estimator=estimator,
-        sharrow_settings=model_settings.sharrow_settings,
+        compute_settings=model_settings.compute_settings,
     )
 
     return choices

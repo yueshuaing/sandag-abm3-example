@@ -34,5 +34,5 @@ ALTS_TABLE_STRUCTURE:
       2: children
       3: mixed
 
-sharrow_settings:
-  skip: true
+compute_settings:
+  sharrow_skip: true

@@ -51,34 +51,34 @@ TOUR_SPEC_SEGMENTS:
 # spec keyed by <spec_segment>
 SPEC_SEGMENTS:
   escort:
-    'SPEC': tour_scheduling_nonmandatory_escort.csv
-    'COEFFICIENTS': tour_scheduling_nonmandatory_escort_coefficients.csv
-    'sharrow_settings':
-      skip: true
+    SPEC: tour_scheduling_nonmandatory_escort.csv
+    COEFFICIENTS: tour_scheduling_nonmandatory_escort_coefficients.csv
+    compute_settings:
+      sharrow_skip: true
   shopping:
-    'SPEC': tour_scheduling_nonmandatory_shopping.csv
-    'COEFFICIENTS': tour_scheduling_nonmandatory_shopping_coefficients.csv
-    'sharrow_settings':
+    SPEC: tour_scheduling_nonmandatory_shopping.csv
+    COEFFICIENTS: tour_scheduling_nonmandatory_shopping_coefficients.csv
+    compute_settings:
       skip: true
   eatout:
-    'SPEC': tour_scheduling_nonmandatory_eatout.csv
-    'COEFFICIENTS': tour_scheduling_nonmandatory_eatout_coefficients.csv
-    'sharrow_settings':
+    SPEC: tour_scheduling_nonmandatory_eatout.csv
+    COEFFICIENTS: tour_scheduling_nonmandatory_eatout_coefficients.csv
+    compute_settings:
       skip: true
   othdiscr:
-    'SPEC': tour_scheduling_nonmandatory_othdiscr.csv
-    'COEFFICIENTS': tour_scheduling_nonmandatory_othdiscr_coefficients.csv
-    'sharrow_settings':
+    SPEC: tour_scheduling_nonmandatory_othdiscr.csv
+    COEFFICIENTS: tour_scheduling_nonmandatory_othdiscr_coefficients.csv
+    compute_settings:
       skip: true
   othmaint:
-    'SPEC': tour_scheduling_nonmandatory_othmaint.csv
-    'COEFFICIENTS': tour_scheduling_nonmandatory_othmaint_coefficients.csv
-    'sharrow_settings':
+    SPEC: tour_scheduling_nonmandatory_othmaint.csv
+    COEFFICIENTS: tour_scheduling_nonmandatory_othmaint_coefficients.csv
+    compute_settings:
       skip: true
   social:
-    'SPEC': tour_scheduling_nonmandatory_social.csv
-    'COEFFICIENTS': tour_scheduling_nonmandatory_social_coefficients.csv
-    'sharrow_settings':
+    SPEC: tour_scheduling_nonmandatory_social.csv
+    COEFFICIENTS: tour_scheduling_nonmandatory_social_coefficients.csv
+    compute_settings:
       skip: true
 
 ## alts preprocessor keyed by <spec_segment>
@@ -104,5 +104,5 @@ SPEC_SEGMENTS:
 #
 DESTINATION_FOR_TOUR_PURPOSE: destination
 
-'sharrow_settings':
-  skip: true
+compute_settings:
+  sharrow_skip: true

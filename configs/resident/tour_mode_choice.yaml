@@ -113,5 +113,5 @@ LOGSUM_CHOOSER_COLUMNS:
 
 MODE_CHOICE_LOGSUM_COLUMN_NAME: mode_choice_logsum
 
-sharrow_settings:
-  skip: true
+compute_settings:
+  sharrow_skip: true
