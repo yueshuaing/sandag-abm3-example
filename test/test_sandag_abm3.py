@@ -253,16 +253,25 @@ def test_sandag_abm3_progressive(use_sharrow):
 
     for step_name in EXPECTED_MODELS:
         state.run.by_name(step_name)
-        try:
-            if ref_pipeline.exists():
+        if ref_pipeline.exists():
+            try:
                 # The usual default rtol=1e-5 is too strict for cross-platform testing
                 state.checkpoint.check_against(ref_pipeline, checkpoint_name=step_name, rtol=3.3e-5)
-                pass
-        except Exception:
-            print(f"> sandag-abm3 {step_name}: ERROR")
-            raise
+            except Exception:
+                print(f"> sandag-abm3 {step_name}: ERROR")
+                raise
+            else:
+                print(f"> sandag-abm3 {step_name}: ok")
         else:
-            print(f"> sandag-abm3 {step_name}: ok")
+            print(f"> sandag-abm3 {step_name}: ran, not checked (no reference pipeline)")
+
+    if not ref_pipeline.exists():
+        # make new reference pipeline file if it is missing
+        import shutil
+
+        shutil.make_archive(
+            ref_pipeline.with_suffix(""), "zip", state.checkpoint.store.filename
+        )
 
 
 if __name__ == "__main__":
