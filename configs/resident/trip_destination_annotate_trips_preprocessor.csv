@@ -36,5 +36,5 @@ adding _trips to avoid conflict with the variables in the tours_merged,age_trips
 Micromobility access Time,o_MicroAccessTime,"reindex(land_use.MicroAccessTime,df.origin)"
 ,max_walk_distance,max_walk_distance
 ,max_bike_distance,max_bike_distance
-,microAccessThreshold,microAccessThreshold
+,microAccessThreshold_val,microAccessThreshold
 ,purpose_index_num,"size_terms.get_cols(df.purpose)"
