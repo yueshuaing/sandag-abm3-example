@@ -26,3 +26,6 @@ OCCUPANCY_LEVELS:
 #   DF: tours
 #   TABLES:
 #     - vehicles
+
+compute_settings:
+  sharrow_skip: true

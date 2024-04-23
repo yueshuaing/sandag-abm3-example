@@ -435,7 +435,7 @@ Description,Target,Expression
 ,_transfersTransit,"_transfersTransit + odt_skims['TNCIN_PRM_XFERS'] * np.where(trips.trip_mode == 'TNC_PRM',1,0) * np.where(~trips.outbound,1,0)"
 ,transfersTransit,"_transfersTransit + odt_skims['TNCIN_MIX_XFERS'] * np.where(trips.trip_mode == 'TNC_MIX',1,0) * np.where(~trips.outbound,1,0)"
 #bikeskim,,
-,timeBike,"od_skims['BIKE_TIME'] * np.where(trips.trip_mode == 'BIKE',1,0)"
+,timeBike,"odt_skims['BIKE_TIME'] * np.where(trips.trip_mode == 'BIKE',1,0)"
 ,timeWalk,"od_skims['walkTime'] * np.where(trips.trip_mode == 'WALK',1,0)"
 # totals,,
 ,cost_total, costOperatingDrive + costTollDrive + costFareTransit

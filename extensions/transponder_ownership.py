@@ -99,6 +99,7 @@ def transponder_ownership(
         trace_label=trace_label,
         trace_choice_name="transponder_ownership",
         estimator=estimator,
+        compute_settings=model_settings.compute_settings,
     )
     choices = choices == transponder_own_alt
 

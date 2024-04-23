@@ -185,8 +185,8 @@ Final parking cost,parkingCost,parkCostTourDestContrib + parkCostTripOrigContrib
 Origin Terminal Time,oTermTime,"reindex(land_use.terminal_time,origin)"
 Destination Terminal Time,dTermTime,"reindex(land_use.terminal_time,destination)"
 #,,
-bike logsum,bikeLS,od_skims['BIKE_LOGSUM']
-bike time inbound,bike_time,od_skims['BIKE_TIME']
+bike logsum,bikeLS,odt_skims['BIKE_LOGSUM']
+bike time inbound,bike_time,odt_skims['BIKE_TIME']
 #,,
 "Cost factor for shared 2 tours, 1/(2^0.8)",costFactorS2,0.57
 "Cost factor for shared 3+ tours, 1/(3.5^0.8)",costFactorS3,0.37
@@ -329,3 +329,25 @@ microtransit/nev egress transfer,mtnev_egr_xfer_out,microtransit_egress_availabl
 microtransit/nev egress transfer,mtnev_egr_xfer_in,microtransit_egress_available_in | nev_egress_available_in
 #,,
 transit subsidi pass discount,transitSubsidyPassDiscount,"np.where(df.transit_pass_subsidy | df.transit_pass_ownership,0,1)"
+#,,
+clip_WALK_LOC_XFERS,clip_WALK_LOC_XFERS,"np.clip(odt_skims['WALK_LOC_XFERS'],a_min=None,a_max=4)"
+clip_WALK_PRM_XFERS,clip_WALK_PRM_XFERS,"np.clip(odt_skims['WALK_PRM_XFERS'] + df.outbound*mtnev_egr_xfer_out + ~df.outbound*mtnev_acc_xfer_in, a_min=None,a_max=4)"
+clip_WALK_MIX_XFERS,clip_WALK_MIX_XFERS,"np.clip(odt_skims['WALK_MIX_XFERS'], a_min=None,a_max=4)"
+clip_PNROUT_LOC_XFERS,clip_PNROUT_LOC_XFERS,"np.clip(odt_skims['PNROUT_LOC_XFERS'], a_min=None,a_max=4)"
+clip_PNRIN_LOC_XFERS,clip_PNRIN_LOC_XFERS,"np.clip(odt_skims['PNRIN_LOC_XFERS'], a_min=None,a_max=4)"
+clip_PRNOUT_PRM_XFERS,clip_PRNOUT_PRM_XFERS,"np.clip(odt_skims['PNROUT_PRM_XFERS'] + mtnev_egr_xfer_out, a_min=None,a_max=4)"
+clip_PNRIN_PRM_XFERS,clip_PNRIN_PRM_XFERS,"np.clip(odt_skims['PNRIN_PRM_XFERS'] + mtnev_acc_xfer_in, a_min=None,a_max=4)"
+clip_PNROUT_MIX_XFERS,clip_PNROUT_MIX_XFERS,"np.clip(odt_skims['PNROUT_MIX_XFERS'], a_min=None,a_max=4)"
+clip_PNRIN_MIX_XFERS,clip_PNRIN_MIX_XFERS,"np.clip(odt_skims['PNRIN_MIX_XFERS'], a_min=None,a_max=4)"
+clip_KNROUT_LOC_XFERS,clip_KNROUT_LOC_XFERS,"np.clip(odt_skims['KNROUT_LOC_XFERS'], a_min=None,a_max=4)"
+clip_KNRIN_LOC_XFERS,clip_KNRIN_LOC_XFERS,"np.clip(odt_skims['KNRIN_LOC_XFERS'], a_min=None,a_max=4)"
+clip_KNROUT_PRM_XFERS,clip_KNROUT_PRM_XFERS,"np.clip(odt_skims['KNROUT_PRM_XFERS'] + mtnev_egr_xfer_out, a_min=None,a_max=4)"
+clip_KNRIN_PRM_XFERS,clip_KNRIN_PRM_XFERS,"np.clip(odt_skims['KNRIN_PRM_XFERS'] + mtnev_acc_xfer_in, a_min=None,a_max=4)"
+clip_KNROUT_MIX_XFERS,clip_KNROUT_MIX_XFERS,"np.clip(odt_skims['KNROUT_MIX_XFERS'], a_min=None,a_max=4)"
+clip_KNRIN_MIX_XFERS,clip_KNRIN_MIX_XFERS,"np.clip(odt_skims['KNRIN_MIX_XFERS'], a_min=None,a_max=4)"
+clip_TNCOUT_LOC_XFERS,clip_TNCOUT_LOC_XFERS,"np.clip(odt_skims['TNCOUT_LOC_XFERS'], a_min=None,a_max=4)"
+clip_TNCIN_LOC_XFERS,clip_TNCIN_LOC_XFERS,"np.clip(odt_skims['TNCIN_LOC_XFERS'], a_min=None,a_max=4)"
+clip_TNCOUT_PRM_XFERS,clip_TNCOUT_PRM_XFERS,"np.clip(odt_skims['TNCOUT_PRM_XFERS'] + mtnev_acc_xfer_out + mtnev_egr_xfer_out, a_min=None,a_max=4)"
+clip_TNCIN_PRM_XFERS,clip_TNCIN_PRM_XFERS,"np.clip(odt_skims['TNCIN_PRM_XFERS'] + mtnev_acc_xfer_in + mtnev_egr_xfer_in, a_min=None,a_max=4)"
+clip_TNCOUT_MIX_XFERS,clip_TNCOUT_MIX_XFERS,"np.clip(odt_skims['TNCOUT_MIX_XFERS'], a_min=None,a_max=4)"
+clip_TNCIN_MIX_XFERS,clip_TNCIN_MIX_XFERS,"np.clip(odt_skims['TNCIN_MIX_XFERS'], a_min=None,a_max=4)"

@@ -22,7 +22,7 @@ from activitysim.core.configuration.base import PreprocessorSettings
 logger = logging.getLogger(__name__)
 
 
-class ExternalIdentificationSettings(LogitComponentSettings):
+class ExternalIdentificationSettings(LogitComponentSettings, extra="forbid"):
     """
     Settings for the `external_identification` component.
     """
@@ -123,6 +123,7 @@ def external_identification(
         trace_label=trace_label,
         trace_choice_name=trace_label,
         estimator=estimator,
+        compute_settings=model_settings.compute_settings,
     )
 
     return choices
