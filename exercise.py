@@ -90,7 +90,7 @@ def get_full_data():
             name="sandag-abm3",
             assets={
                 f"data-full.tar.zst.part{i:03}": {
-                    "url": f"https://github.com/ActivitySim/sandag-abm3-example/releases/download/v0.2.0/sandag-full-data.tar.zst.part{i:03}",
+                    "url": f"https://github.com/ActivitySim/sandag-abm3-example/releases/download/v0.2.0/data-full.tar.zst.part{i:03}",
                     "sha256": sha256,
                 }
                 for i, sha256 in archive_sha256.items()
