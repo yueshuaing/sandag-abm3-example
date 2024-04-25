@@ -27,7 +27,7 @@ def _exercise_path(dirname) -> Path:
 # If the full scale data is already available, the whole data download process
 # can be commented out and skipped.
 
-full_data_dir = _exercise_path("data-full-bonus")
+full_data_dir = _exercise_path("data-full")
 
 archive_sha256 = {
     11: "5b0c7ad009115830fbedaee9dd33981b3bab23b3b7177a7a0a8f3c871decf989",
@@ -97,7 +97,7 @@ if download_required:
     for filename, sha256 in full_data_sha256.items():
         if not full_data_dir.joinpath(filename).exists():
             raise ValueError(f"data missing: {filename}")
-        if sha256 != sha256_checksum(filename):
+        if sha256 != sha256_checksum(full_data_dir.joinpath(filename)):
             raise ValueError(f"data error: {filename}")
 else:
     print("full data ready")
