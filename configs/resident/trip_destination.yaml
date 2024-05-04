@@ -25,9 +25,7 @@ PRIMARY_DEST: tour_leg_dest # must be created in preprocessor
 # (it is assigned in trip_destination_annotate_trips_preprocessor )
 REDUNDANT_TOURS_MERGED_CHOOSER_COLUMNS:
   - tour_mode
-  
 
-  
 preprocessor:
   SPEC: trip_destination_annotate_trips_preprocessor
   DF: trips
@@ -35,6 +33,12 @@ preprocessor:
     - tours
     - persons
     - households
+    - land_use
+
+alts_preprocessor:
+  SPEC: trip_destination_annotate_alts_preprocessor
+  DF: trips
+  TABLES:
     - land_use
 
 
