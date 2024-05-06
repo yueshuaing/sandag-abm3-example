@@ -13,4 +13,5 @@ preprocessor:
     - joint_tour_participants
 
 compute_settings:
-  sharrow_skip: true
+  use_numexpr: true
+  # require numexpr for legacy eval to prevent overflow when squaring start times
