@@ -1,2 +1,0 @@
-Description,Target,Expression
-micromobility access time at destination,d_microAccTime,"land_use['MicroAccessTime'].reindex(df.index)"

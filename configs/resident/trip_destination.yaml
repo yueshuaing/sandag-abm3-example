@@ -17,7 +17,7 @@ DEST_CHOICE_SAMPLE_TABLE_NAME: trip_destination_sample
 
 # model-specific logsum-related settings
 TRIP_ORIGIN: origin
-ALT_DEST_COL_NAME: dest_maz
+ALT_DEST_COL_NAME: alt_dest
 PRIMARY_ORIGIN: tour_leg_origin
 PRIMARY_DEST: tour_leg_dest # must be created in preprocessor
 
@@ -35,11 +35,19 @@ preprocessor:
     - households
     - land_use
 
-alts_preprocessor:
-  SPEC: trip_destination_annotate_alts_preprocessor
-  DF: trips
+# preprocessor for sample, operates on TAZs
+alts_preprocessor_sample:
+  SPEC: trip_destination_annotate_alts_preprocessor_sample
+  DF: alternatives
   TABLES:
     - land_use
+
+# preprocessor for simulate, operates on MAZs in two zone models
+# alts_preprocessor_sample:
+#   SPEC: trip_destination_annotate_alts_preprocessor_simulate
+#   DF: alternatives
+#   TABLES:
+#     - land_use
 
 
 # drop failed trips and cleanup failed trip leg_mates for consistency
