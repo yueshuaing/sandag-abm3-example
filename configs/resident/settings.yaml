@@ -186,3 +186,13 @@ models:
   - track_skim_usage
   - write_trip_matrices
   - write_tables
+
+# These skim tables are included in the model as two sets, one as
+#   time-independent  (e.g. BIKE_TIME) and one as time-dependent
+#   (e.g. BIKE_TIME__AM), although the actual data is all time-independent.
+#   This prevents the (pseudo-) time-dependent tables from being loaded,
+#   which would be a waste of memory, and causes problems with the
+#   two-zone data backing these skims.
+omx_ignore_patterns:
+  - "BIKE_TIME__.+"
+  - "BIKE_LOGSUM__.+"
