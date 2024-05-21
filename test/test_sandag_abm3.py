@@ -22,20 +22,20 @@ def _test_path(dirname) -> Path:
     return Path(__file__).parent.joinpath(dirname)
 
 
-def regress(out_dir: Path, regress_dir: Path = None):
+def regress(out_dir: Path, regress_dir: Path = None, filename="final_trips.csv"):
     if regress_dir is None:
         regress_dir = _test_path("regress")
-    regress_trips_df = pd.read_csv(regress_dir.joinpath("final_trips.csv"))
-    final_trips_df = pd.read_csv(out_dir / "final_trips.csv")
+    regress_df = pd.read_csv(regress_dir.joinpath(filename))
+    final_df = pd.read_csv(out_dir / filename)
 
     # columns that are in the regression target must be in the output
-    missing_columns = set(regress_trips_df.columns) - set(final_trips_df.columns)
+    missing_columns = set(regress_df.columns) - set(final_df.columns)
     assert missing_columns == set()
 
     # column order may not match, so fix it before checking
-    final_trips_df = final_trips_df[regress_trips_df.columns]
+    final_df = final_df[regress_df.columns]
 
-    pdt.assert_frame_equal(final_trips_df, regress_trips_df)
+    pdt.assert_frame_equal(final_df, regress_df)
 
 
 EXPECTED_MODELS = [
@@ -164,6 +164,15 @@ def test_sandag_abm3_progressive(use_sharrow):
             shutil.copytree(state.checkpoint.store.filename, ref_pipeline)
             if (ref_pipeline / ".gitignore").exists():
                 os.remove(ref_pipeline / ".gitignore")
+
+    # check final outputs
+    regress(out_dir, filename="final_trips.csv")
+    regress(out_dir, filename="final_households.csv")
+    regress(out_dir, filename="final_persons.csv")
+    regress(out_dir, filename="final_tours.csv")
+    regress(out_dir, filename="final_vehicles.csv")
+    regress(out_dir, filename="final_accessibility.csv")
+    regress(out_dir, filename="final_joint_tour_participants.csv")
 
 
 if __name__ == "__main__":

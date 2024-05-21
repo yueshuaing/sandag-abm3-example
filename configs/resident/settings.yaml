@@ -110,15 +110,41 @@ output_tables:
   sort: True
   tables:
     - checkpoints
-    - accessibility
-    - land_use
-    - households
-    - persons
-    - tours
-    - trips
+    - tablename: accessibility
+      decode_columns:
+        zone_id: land_use.zone_id
+    - tablename: land_use
+      decode_columns:
+        zone_id: land_use.zone_id
+        TAZ: land_use_taz.TAZ
+    - tablename: households
+      decode_columns:
+        home_zone_id: land_use.zone_id
+        TAZ: land_use_taz.TAZ
+    - tablename: persons
+      decode_columns:
+        home_zone_id: land_use.zone_id
+        school_zone_id: nonnegative | land_use.zone_id
+        workplace_zone_id: nonnegative | land_use.zone_id
+    - tablename: trips
+      decode_columns:
+        origin: land_use.zone_id
+        destination: land_use.zone_id
+        origin_parking_zone: nonnegative | land_use.zone_id
+        parking_zone: nonnegative | land_use.zone_id
+        trip_period: time_period
+        otaz: land_use_taz.TAZ
+        dtaz: land_use_taz.TAZ
+    - tablename: tours
+      decode_columns:
+        origin: land_use.zone_id
+        destination: land_use.zone_id
     - joint_tour_participants
     - vehicles
-    - proto_disaggregate_accessibility
+    - tablename: proto_disaggregate_accessibility
+      decode_columns:
+        home_zone_id: land_use.zone_id
+        TAZ: land_use_taz.TAZ
     - disaggregate_accessibility
 
 distributed_time_factor_work_mean: 1.0
