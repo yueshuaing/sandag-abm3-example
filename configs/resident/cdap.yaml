@@ -47,4 +47,4 @@ annotate_households:
     - persons
 
 compute_settings:
-  sharrow_skip: true
+  fastmath: false

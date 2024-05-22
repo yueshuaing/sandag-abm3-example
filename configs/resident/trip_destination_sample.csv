@@ -2,8 +2,8 @@ Description,Expression,work,univ,school,escort,shopping,eatout,othmaint,social,o
 ,_od_DIST@od_skims['DIST'],1,1,1,1,1,1,1,1,1,1
 ,_dp_DIST@dp_skims['DIST'],1,1,1,1,1,1,1,1,1,1
 ,_op_DIST@op_skims['DIST'],1,1,1,1,1,1,1,1,1,1
-,_od_bikeL@odt_skims['BIKE_LOGSUM'],1,1,1,1,1,1,1,1,1,1
-,_dp_bikeL@dpt_skims['BIKE_LOGSUM'],1,1,1,1,1,1,1,1,1,1
+,_od_bikeL@od_skims['BIKE_LOGSUM'],1,1,1,1,1,1,1,1,1,1
+,_dp_bikeL@dp_skims['BIKE_LOGSUM'],1,1,1,1,1,1,1,1,1,1
 #,,,,,,,,,,,
 size term,"@np.log1p(size_terms.get(df.alt_dest, df.purpose)) # sharrow: np.log1p(size_terms['sizearray'])",1,1,1,1,1,1,1,1,1,1
 no attractions,"@size_terms.get(df.alt_dest, df.purpose) == 0 # sharrow: size_terms['sizearray'] == 0",-999,-999,-999,-999,-999,-999,-999,-999,-999,-999

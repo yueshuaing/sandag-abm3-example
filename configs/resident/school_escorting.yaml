@@ -47,4 +47,4 @@ CONSTANTS:
   mins_per_time_bin: 30
 
 compute_settings:
-  sharrow_skip: true
+  fastmath: false
