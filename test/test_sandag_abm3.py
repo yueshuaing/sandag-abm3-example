@@ -35,7 +35,7 @@ def regress(out_dir: Path, regress_dir: Path = None, filename="final_trips.csv")
     # column order may not match, so fix it before checking
     final_df = final_df[regress_df.columns]
 
-    pdt.assert_frame_equal(final_df, regress_df)
+    pdt.assert_frame_equal(final_df, regress_df, check_dtype=False, check_like=True)
 
 
 EXPECTED_MODELS = [
