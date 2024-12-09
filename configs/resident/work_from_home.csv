@@ -28,3 +28,4 @@ util_regional_calibration, Regional calibration factor,1,coef_regional_calibrati
 #util_NWcounty,PMSA 6 - North County West,@df.pseudomsa==6,coef_NWCounty,
 #util_Ncounty,PMSA 7 - North County East,@df.pseudomsa==7,coef_NCounty,
 #util_Ecounty,PMSA 8 - East County,@df.pseudomsa==8,coef_ECounty,
+util_wfh_constant,Constant for sensitivity test,1,0.590316205,

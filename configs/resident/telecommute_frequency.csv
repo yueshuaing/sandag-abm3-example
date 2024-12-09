@@ -30,3 +30,4 @@ util_mgmt_srv,Management services industry,@df.naics_code==55,,coef_mgmt_srv_1da
 util_military,Miliary industry,@df.naics_code==9000,,coef_military_1day,coef_military_234day,coef_military_234day
 util_retail,Retail industry,"@df.naics_code.isin([44,45])",,coef_retail_1day,coef_retail_23day,coef_retail_4day
 util_asc,Alternative specific constant,1,,asc_1day,asc_23day,asc_4day
+util_tele_constant, Constant for sensitivity test,1,-1.876356801,,,
