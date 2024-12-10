@@ -29,12 +29,12 @@ want_dest_choice_sample_tables: False
 # trace origin, destination in accessibility calculation; comment out or leave empty for no trace
 #trace_od:
 
-households_sample_size: 100
-
+households_sample_size: 63844 #255377
+# resume_after: cdap_simulate
 # input tables
 input_table_list:
   - tablename: households
-    filename: households.csv
+    filename: households.parquet
     index_col: household_id
     rename_columns:
       hhid: household_id
@@ -56,7 +56,7 @@ input_table_list:
       - bldgsz
       - unittype
   - tablename: persons
-    filename: persons.csv
+    filename: persons.parquet
     index_col: person_id
     rename_columns:
       hhid: household_id
@@ -74,7 +74,7 @@ input_table_list:
       - naics2_original_code
       - soc2
   - tablename: land_use
-    filename: land_use.csv
+    filename: land_use.parquet
     index_col: zone_id
     rename_columns:
       MAZ: zone_id
@@ -180,6 +180,7 @@ models:
   - free_parking
   - telecommute_frequency
   - cdap_simulate
+  # - explicit_telecommute
   - mandatory_tour_frequency
   - mandatory_tour_scheduling
   - school_escorting
